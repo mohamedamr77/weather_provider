@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:weatherappoprovider/provider/weather_provider.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
@@ -18,6 +20,9 @@ class SearchScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextFormField(
+                onFieldSubmitted: (value){
+                  Provider.of<WeatherProvider>(context , listen:  false).fetchWeatherData(city: value);
+                },
                 decoration: const InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
