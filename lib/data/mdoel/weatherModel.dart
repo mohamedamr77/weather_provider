@@ -35,15 +35,16 @@ class WeatherModel {
       dailyList.add(DailyForecast.fromJson(day));
     }
 
-
     return WeatherModel(
       city: json["location"]["name"],
       maxTemperature: json["forecast"]["forecastday"][0]["day"]["maxtemp_c"],
       minTemperature: json["forecast"]["forecastday"][0]["day"]["mintemp_c"],
       updateAt: DateTime.parse(json["current"]["last_updated"]),
       image: json["forecast"]["forecastday"][0]["day"]["condition"]["icon"],
-      averageTemperature: json["forecast"]["forecastday"][0]["day"]["avgtemp_c"],
-      conditionTemp: json["forecast"]["forecastday"][0]["day"]["condition"]["text"],
+      averageTemperature: json["forecast"]["forecastday"][0]["day"]
+          ["avgtemp_c"],
+      conditionTemp: json["forecast"]["forecastday"][0]["day"]["condition"]
+          ["text"],
       hourlyForecast: hourlyList,
       dailyForecast: dailyList,
     );
@@ -51,17 +52,16 @@ class WeatherModel {
 
   @override
   String toString() {
-    return
-      'WeatherModel('
-          'city: $city, '
-          'maxTemperature: $maxTemperature,'
-          ' minTemperature: $minTemperature,'
-          ' updateAt: $updateAt,'
-          ' image: $image,'
-          ' averageTemperature: $averageTemperature,'
-          ' conditionTemp: $conditionTemp,'
-          ' hourlyForecast: $hourlyForecast,'
-          ' dailyForecast: $dailyForecast ,)';
+    return 'WeatherModel('
+        'city: $city, '
+        'maxTemperature: $maxTemperature,'
+        ' minTemperature: $minTemperature,'
+        ' updateAt: $updateAt,'
+        ' image: $image,'
+        ' averageTemperature: $averageTemperature,'
+        ' conditionTemp: $conditionTemp,'
+        ' hourlyForecast: $hourlyForecast,'
+        ' dailyForecast: $dailyForecast ,)';
   }
 }
 
@@ -98,7 +98,7 @@ class DailyForecast {
 
   factory DailyForecast.fromJson(Map<String, dynamic> json) {
     return DailyForecast(
-      date:  DateTime.parse(json["date"]),
+      date: DateTime.parse(json["date"]),
       temperature: json["day"]["avgtemp_c"],
       image: json["day"]["condition"]["icon"],
     );

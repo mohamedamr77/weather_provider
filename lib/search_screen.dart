@@ -9,6 +9,7 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<WeatherProvider>(context, listen: false);
     return Stack(
       children: [
         Scaffold(
@@ -17,7 +18,7 @@ class SearchScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_back_ios,
                   color: Colors.white,
                 )),
@@ -39,13 +40,12 @@ class SearchScreen extends StatelessWidget {
                     builder: (context, value, child) {
                       return TextFormField(
                         onFieldSubmitted: (value) async {
-                          await Provider.of<WeatherProvider>(context, listen: false).fetchWeatherData(city: value, context: context);
-                          if (
-                          Provider.of<WeatherProvider>(context, listen: false).statusGetter
-                              == Status.success
-                          ) {
+                          await Provider.of<WeatherProvider>(context,
+                                  listen: false)
+                              .fetchWeatherData(city: value, context: context);
+                          if (provider.statusGetter == Status.success) {
                             Navigator.pop(context);
-                          } else if (Provider.of<WeatherProvider>(context, listen: false).statusGetter == Status.failure) {
+                          } else if (provider.statusGetter == Status.failure) {
                             Fluttertoast.showToast(
                               msg: "Error Message ",
                               toastLength: Toast.LENGTH_SHORT,
@@ -57,16 +57,15 @@ class SearchScreen extends StatelessWidget {
                             );
                           }
                         },
-
                         decoration: const InputDecoration(
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Colors.grey,
-                              )),
+                            color: Colors.grey,
+                          )),
                           focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Colors.blue,
-                              )),
+                            color: Colors.blue,
+                          )),
                           hintText: "Write city",
                         ),
                       );
@@ -81,7 +80,7 @@ class SearchScreen extends StatelessWidget {
           Container(
             alignment: Alignment.center,
             color: Colors.black12,
-            child: CircularProgressIndicator(
+            child: const CircularProgressIndicator(
               color: Colors.blue,
             ),
           ),
