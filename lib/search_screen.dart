@@ -39,8 +39,7 @@ class SearchScreen extends StatelessWidget {
                     builder: (context, value, child) {
                       return TextFormField(
                         onFieldSubmitted: (value) {
-                          var fetchWeatherData = Provider.of<WeatherProvider>(context, listen: false).fetchWeatherData(city: value,);
-
+                          var fetchWeatherData = Provider.of<WeatherProvider>(context, listen: false).fetchWeatherData(city: value, context: context,);
                         },
                         decoration: const InputDecoration(
                           enabledBorder: OutlineInputBorder(

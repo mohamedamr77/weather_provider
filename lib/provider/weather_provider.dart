@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:weatherappoprovider/data/mdoel/weatherModel.dart';
 import 'package:weatherappoprovider/data/weateher_repo.dart';
 
@@ -12,7 +13,7 @@ class WeatherProvider with ChangeNotifier{
   Status get statusGetter => status;
   WeatherProvider({required this.weatherRepo,});
 
-  fetchWeatherData({required String city,})async{
+  fetchWeatherData({required String city, required BuildContext context})async{
     status = Status.loading;
     notifyListeners();
     var result =await weatherRepo.fetchWeatherData(city: city);
@@ -20,10 +21,23 @@ class WeatherProvider with ChangeNotifier{
             (error){
               status = Status.failure;
               notifyListeners();
+              Fluttertoast.showToast(
+                  msg: error.message,
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.red,
+                  textColor: Colors.white,
+                  fontSize: 16.0
+              );
             }, (success){
               status =Status.success;
               weatherModel= success;
               notifyListeners();
+              if (status ==Status.success){
+                Navigator.pop(context);
+              }
+
     });
   }
 }
