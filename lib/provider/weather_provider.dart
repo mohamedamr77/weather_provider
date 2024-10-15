@@ -6,17 +6,16 @@ import 'package:weatherappoprovider/data/weateher_repo.dart';
 import '../enum_variable.dart';
 
 class WeatherProvider with ChangeNotifier{
-  Status status = Status.loading;
+  Status status= Status.initial ;
   WeatherModel? weatherModel;
   final WeatherRepo weatherRepo;
   Status get statusGetter => status;
+  WeatherProvider({required this.weatherRepo,});
 
-  WeatherProvider({required this.weatherRepo});
-
-  fetchWeatherData({required String city})async{
+  fetchWeatherData({required String city,})async{
     status = Status.loading;
-    var result =await weatherRepo.fetchWeatherData(city: city);
     notifyListeners();
+    var result =await weatherRepo.fetchWeatherData(city: city);
     result.fold(
             (error){
               status = Status.failure;
