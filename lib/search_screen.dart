@@ -38,9 +38,26 @@ class SearchScreen extends StatelessWidget {
                   Consumer<WeatherProvider>(
                     builder: (context, value, child) {
                       return TextFormField(
-                        onFieldSubmitted: (value) {
-                          var fetchWeatherData = Provider.of<WeatherProvider>(context, listen: false).fetchWeatherData(city: value, context: context,);
+                        onFieldSubmitted: (value) async {
+                          await Provider.of<WeatherProvider>(context, listen: false).fetchWeatherData(city: value, context: context);
+                          if (
+                          Provider.of<WeatherProvider>(context, listen: false).statusGetter
+                              == Status.success
+                          ) {
+                            Navigator.pop(context);
+                          } else if (Provider.of<WeatherProvider>(context, listen: false).statusGetter == Status.failure) {
+                            Fluttertoast.showToast(
+                              msg: "Error Message ",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0,
+                            );
+                          }
                         },
+
                         decoration: const InputDecoration(
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(

@@ -30,8 +30,6 @@ class HomeScreen extends StatelessWidget {
             Text(weatherModel?.city??"sa",style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 26 ,color: Colors.black),),
              Text(weatherModel?.conditionTemp??"",style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 26 ,color: Colors.black),),
              Text(weatherModel?.maxTemperature.toString()??"",style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 26 ,color: Colors.black),),
-            const Text("enviroment",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 26 ,color: Colors.black),),
-
           ],
         ),
       ),
